@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AICTE FDR Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5F4;--card:#fff;--ink:#17262B;--mute:#5E7077;--line:#DCE4E3;--brand:#0E4D45;--brand2:#0A3731;--gold:#E3A12F;--ok:#1F7A5C;--warn:#D98E04;--bad:#C2412D;--blue:#4A6FA5;--grey:#7A8794;--vio:#7B5EA7;--sh:0 1px 2px rgba(14,77,69,.08),0 6px 20px rgba(14,77,69,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1A1C;--card:#14262A;--ink:#E6EEEC;--mute:#92A7A9;--line:#24393D;--brand:#12665B;--brand2:#081F20;--sh:0 1px 2px rgba(0,0,0,.4)}}
+:root[data-theme="dark"]{--bg:#0D1A1C;--card:#14262A;--ink:#E6EEEC;--mute:#92A7A9;--line:#24393D;--brand:#12665B;--brand2:#081F20;--sh:0 1px 2px rgba(0,0,0,.4)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "IBM Plex Sans",system-ui,sans-serif;display:flex;min-height:100vh}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;margin:0;font-weight:700}
+nav{width:220px;background:var(--brand2);color:#CFE3DF;padding:22px 14px;position:sticky;top:0;height:100vh;flex:none;display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;gap:10px;align-items:center;padding:0 8px 18px;color:#fff}
+.logo b{font:700 17px "Source Serif 4",serif;line-height:1.15}.logo small{display:block;font:400 11px "IBM Plex Sans";color:#8FB5AE}
+nav button{all:unset;cursor:pointer;position:relative;z-index:1;padding:10px 12px;border-radius:8px;display:flex;gap:10px;align-items:center;transition:background .25s,color .25s,transform .25s}
+nav button:hover{background:rgba(255,255,255,.08);transform:translateX(3px)}
+nav button.on,nav button.on:hover{background:transparent;color:#2B1D00;font-weight:600}
+nav button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.who{margin-top:auto;font-size:12px;color:#8FB5AE;padding:8px}
+main{flex:1;min-width:0;padding:0 28px 40px}
+.top{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;gap:18px;align-items:center;padding:16px 0;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:22px}
+.top h1{font-size:26px;flex:1;min-width:160px}
+.clock{display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;box-shadow:var(--sh)}
+.clock b{font:600 15px "Source Serif 4",serif;min-width:96px;display:inline-block}.clock small{color:var(--mute);display:block;font-size:11px}
+input[type=range]{accent-color:var(--gold);width:170px}
+.view{display:none}.view.on{display:block;animation:fd .3s}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--sh)}
+.card h3{font-size:17px;margin-bottom:12px}
+.stat{position:relative;overflow:hidden}.stat .n{font:700 34px "Source Serif 4",serif;line-height:1}.stat span{color:var(--mute);font-size:13px}
+.stat i{position:absolute;right:-8px;bottom:-10px;width:70px;height:70px;border-radius:50%;opacity:.14}
+.pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;color:#fff;white-space:nowrap}
+.tag{font-size:11px;padding:1px 8px;border-radius:6px;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+.tag.bank{background:#1F7A5C22;color:var(--ok);border-color:#1F7A5C55}.tag.ocr{background:#4A6FA522;color:var(--blue);border-color:#4A6FA555}.tag.flag{background:#C2412D22;color:var(--bad);border-color:#C2412D55}
+.donut{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.donut circle{transition:stroke-dasharray 1s cubic-bezier(.2,.8,.2,1)}
+.leg div{display:flex;gap:8px;align-items:center;margin:4px 0}.leg i{width:10px;height:10px;border-radius:3px}
+.bars{display:flex;gap:14px;align-items:flex-end;height:170px;padding-top:8px}
+.bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:12px;color:var(--mute);gap:4px}
+.bars em{display:block;width:100%;border-radius:8px 8px 0 0;background:linear-gradient(var(--gold),var(--brand));transition:height .9s cubic-bezier(.2,.8,.2,1);min-height:3px;font-style:normal}
+.bars b{color:var(--ink)}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:12px;color:var(--mute);font-weight:500;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr{cursor:pointer;transition:background .2s}tbody tr:hover{background:color-mix(in srgb,var(--gold) 12%,transparent)}
+.scroll{overflow-x:auto}
+.bar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+input,select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 11px}
+.chip{all:unset;cursor:pointer;padding:6px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card);transition:all .2s}
+.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn{all:unset;cursor:pointer;background:var(--brand);color:#fff;padding:9px 16px;border-radius:9px;font-weight:600;transition:transform .2s,box-shadow .2s,opacity .2s;display:inline-block}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(14,77,69,.3)}.btn.alt{background:var(--gold);color:#2B1D00}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}.btn[disabled]{opacity:.4;pointer-events:none}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(460px,100%);background:var(--card);z-index:20;box-shadow:-12px 0 40px rgba(0,0,0,.25);transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);padding:24px;overflow:auto}
+.drawer.on{transform:none}.veil{position:fixed;inset:0;background:rgba(5,20,20,.45);opacity:0;pointer-events:none;transition:opacity .35s;z-index:19}.veil.on{opacity:1;pointer-events:auto}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}.kv small{color:var(--mute);display:block;font-size:12px}
+.tl{margin:14px 0;padding-left:0;list-style:none}.tl li{display:flex;gap:12px;align-items:center;padding:6px 0;color:var(--mute);position:relative}
+.tl li:before{content:"";width:12px;height:12px;border-radius:50%;border:2px solid var(--line);background:var(--card);flex:none;transition:all .4s}
+.tl li.done{color:var(--ink)}.tl li.done:before{background:var(--ok);border-color:var(--ok)}.tl li.cur:before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 5px #E3A12F33}
+.chain{font-size:12px;color:var(--mute);margin:6px 0}
+.dots{display:flex;gap:6px}.dots i{width:22px;height:8px;border-radius:4px;background:var(--line);transition:background .4s}.dots i.f{background:var(--warn)}.dots i.f.r{background:var(--bad)}
+.doc{position:relative;background:#fff;color:#223;border:1px solid var(--line);border-radius:10px;padding:16px;overflow:hidden;font:12px/1.7 "IBM Plex Sans";min-height:190px}
+.doc b{display:block;font:700 14px "Source Serif 4";text-align:center;margin-bottom:6px}
+.scan{position:absolute;left:0;right:0;height:3px;background:var(--gold);box-shadow:0 0 18px 6px #E3A12F88;top:0;opacity:0}
+.doc.run .scan{opacity:1;animation:sc 1.6s ease-in-out}
+@keyframes sc{from{top:0}to{top:100%}}
+.res div{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);animation:in .4s both}
+.steps{display:flex;gap:0;margin:20px 0;overflow-x:auto}
+.st{flex:1;min-width:100px;text-align:center;position:relative;font-size:12px;color:var(--mute)}
+.st:before{content:"";position:absolute;top:13px;left:-50%;width:100%;height:3px;background:var(--line);z-index:0}.st:first-child:before{display:none}
+.st i{display:block;width:28px;height:28px;border-radius:50%;background:var(--line);margin:0 auto 6px;position:relative;z-index:1;line-height:28px;font-style:normal;color:#fff;transition:background .5s}
+.st.d i,.st.d:before{background:var(--ok)}.st.c i{background:var(--gold);color:#2B1D00}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,90px);background:var(--brand2);color:#fff;padding:11px 20px;border-radius:12px;transition:transform .4s cubic-bezier(.2,.8,.2,1);z-index:30;max-width:90%}.toast.on{transform:translate(-50%,0)}
+.log div{padding:9px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;animation:in .35s both}.log small{color:var(--mute);min-width:96px}
+.warnbox{background:#C2412D18;border:1px solid #C2412D55;color:var(--bad);padding:10px 14px;border-radius:10px;margin:10px 0}
+.okbox{background:#1F7A5C18;border:1px solid #1F7A5C55;color:var(--ok);padding:10px 14px;border-radius:10px;margin:10px 0}
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bgfx:before{content:"";position:absolute;inset:0;background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/44px 44px;-webkit-mask-image:radial-gradient(ellipse at 70% 15%,#000,transparent 70%);mask-image:radial-gradient(ellipse at 70% 15%,#000,transparent 70%)}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(70px);animation:dr 16s ease-in-out infinite alternate}
+@keyframes dr{to{transform:translate(-60px,50px) scale(1.15)}}
+.bgfx b{position:absolute;bottom:-40px;font:700 20px "Source Serif 4",serif;color:var(--gold);opacity:0;animation:rise 15s linear infinite}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.4}90%{opacity:.25}100%{transform:translateY(-115vh) rotate(200deg);opacity:0}}
+.bgfx svg{position:absolute;right:-60px;bottom:-60px;width:460px;opacity:.07;color:var(--brand)}
+@keyframes fd{from{opacity:0}}
+#ind{position:absolute;background:var(--gold);border-radius:8px;z-index:0;left:0;top:0;width:0;height:0}
+#ind.ready{transition:all .5s cubic-bezier(.2,.8,.2,1)}
+.view.enter .card{animation:in .55s cubic-bezier(.2,.8,.2,1) both}
+.view.enter .card:nth-child(2){animation-delay:.08s}.view.enter .card:nth-child(3){animation-delay:.16s}.view.enter .card:nth-child(4){animation-delay:.24s}.view.enter .card:nth-child(n+5){animation-delay:.3s}
+@keyframes rw{from{opacity:0;transform:translateX(-14px)}}
+.view.enter tbody tr{animation:rw .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:.2s}
+.view.enter tbody tr:nth-child(2){animation-delay:.25s}.view.enter tbody tr:nth-child(3){animation-delay:.3s}.view.enter tbody tr:nth-child(4){animation-delay:.35s}.view.enter tbody tr:nth-child(5){animation-delay:.4s}.view.enter tbody tr:nth-child(6){animation-delay:.45s}.view.enter tbody tr:nth-child(7){animation-delay:.5s}.view.enter tbody tr:nth-child(8){animation-delay:.55s}.view.enter tbody tr:nth-child(n+9){animation-delay:.6s}
+tbody tr{box-shadow:inset 0 0 0 0 var(--gold)}tbody tr:hover{box-shadow:inset 4px 0 0 var(--gold)}
+.stat{transition:transform .25s,box-shadow .25s}.stat:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(14,77,69,.18)}.stat i{transition:transform .5s}.stat:hover i{transform:scale(1.6)}
+.btn:active{transform:scale(.95)}
+input,select{transition:border-color .2s,box-shadow .2s}input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px #E3A12F44}
+@keyframes pop{from{transform:scale(.7);opacity:0}}
+.drawer .pill,.drawer .tag{animation:pop .45s cubic-bezier(.2,.8,.2,1) both}
+.drawer.on .kv>div,.drawer.on .tl li{animation:in .45s cubic-bezier(.2,.8,.2,1) both}
+.drawer .tl li:nth-child(2){animation-delay:.05s}.drawer .tl li:nth-child(3){animation-delay:.1s}.drawer .tl li:nth-child(4){animation-delay:.15s}.drawer .tl li:nth-child(5){animation-delay:.2s}.drawer .tl li:nth-child(6){animation-delay:.25s}.drawer .tl li:nth-child(7){animation-delay:.3s}.drawer .tl li:nth-child(8){animation-delay:.35s}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 #E3A12F88}50%{box-shadow:0 0 0 9px #E3A12F00}}
+.st.c i{animation:pulse 1.8s infinite}
+.swap{animation:sw .5s cubic-bezier(.2,.8,.2,1)}@keyframes sw{from{opacity:.25;transform:translateX(22px)}}
+#intro{position:fixed;inset:0;z-index:60;background:radial-gradient(circle at 50% 40%,#12665B,#0A3731 70%);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:opacity .6s,transform .7s cubic-bezier(.7,0,.2,1)}
+#intro.out{opacity:0;transform:translateY(-6%) scale(1.06);pointer-events:none}
+#intro .sh,#intro .ck{fill:none;stroke:#E3A12F;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:90;stroke-dashoffset:90;animation:dw 1.1s ease forwards}
+#intro .ck{stroke:#fff;stroke-dasharray:20;stroke-dashoffset:20;animation-delay:.9s;animation-duration:.5s}
+@keyframes dw{to{stroke-dashoffset:0}}
+#intro h2{font-size:32px;opacity:0;animation:in .6s .9s both}
+#intro p{color:#8FB5AE;margin:0;opacity:0;animation:in .6s 1.1s both}
+#intro .ib{width:140px;height:3px;background:#ffffff22;border-radius:2px;margin-top:18px;overflow:hidden}
+#intro u{display:block;height:100%;background:#E3A12F;transform:translateX(-100%);animation:ld 1.8s ease forwards}
+@keyframes ld{to{transform:none}}
+.donut circle[data-d]{transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
+@media(max-width:800px){body{flex-direction:column}nav{width:100%;height:auto;flex-direction:row;overflow-x:auto;position:sticky;z-index:6;padding:8px}.logo,.who{display:none}nav button{white-space:nowrap}main{padding:0 14px 40px}.top{top:56px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bgfx" aria-hidden="true"><i style="width:380px;height:380px;background:var(--gold);top:-100px;right:8%;opacity:.2"></i><i style="width:460px;height:460px;background:var(--brand);bottom:-160px;left:18%;opacity:.22;animation-delay:-6s"></i><svg viewBox="0 0 34 34"><path d="M17 3l13 5.500v8c0 7-5.500 12-13 14.500C9.500 28.500 4 23.500 4 16.500v-8z" fill="none" stroke="currentColor" stroke-width="1.200"/><path d="M11 17l4.500 4.500 8-9" fill="none" stroke="currentColor" stroke-width="1.400"/></svg><b style="left:12%">₹</b><b style="left:31%;animation-delay:-4s">₹</b><b style="left:52%;animation-delay:-8s">₹</b><b style="left:68%;animation-delay:-2s">₹</b><b style="left:84%;animation-delay:-11s">₹</b></div>
+<nav id="nav" aria-label="Main">
+ <i id="ind"></i><div class="logo"><svg width="34" height="34" viewBox="0 0 34 34"><rect width="34" height="34" rx="9" fill="#E3A12F"/><path d="M17 7l9 4v6c0 5-4 8.5-9 10-5-1.500-9-5-9-10v-6z" fill="none" stroke="#2B1D00" stroke-width="2"/><path d="M12.500 17l3.500 3.500 6-7" fill="none" stroke="#2B1D00" stroke-width="2.200"/></svg><div><b>FDR Portal</b><small>AICTE Regulation Bureau</small></div></div>
+ <button data-v="dash" class="on">▦ Dashboard</button><button data-v="reg">☰ FDR register</button><button data-v="sub">⬆ Submit FDR</button><button data-v="eng">⏱ Alert engine</button><button data-v="rep">▤ Reports</button><button data-v="rel">⇄ Release</button><button data-v="aud">✎ Audit trail</button>
+ <div class="who" id="who"></div>
+</nav>
+<main>
+ <div class="top"><h1 id="title">Dashboard</h1><div class="clock"><div><small>Viewing as</small><select id="role" aria-label="Switch role"><option value="inst">Institution user</option><option value="scr" selected>Scrutiny officer</option><option value="sen">Senior officer</option><option value="auth">Competent authority</option><option value="acc">Accounts officer</option></select></div></div>
+  <div class="clock"><div><small>Demo date</small><b id="dt"></b></div><input id="slide" type="range" min="0" max="200" value="0" aria-label="Move demo date forward"></div>
+ </div>
+ <section class="view on" id="dash"></section><section class="view" id="reg"></section><section class="view" id="sub"></section><section class="view" id="eng"></section><section class="view" id="rel"></section><section class="view" id="aud"></section><section class="view" id="rep"></section>
+</main>
+<div id="intro" aria-hidden="true"><svg width="120" height="120" viewBox="0 0 34 34"><path class="sh" d="M17 3l13 5.500v8c0 7-5.500 12-13 14.500C9.500 28.500 4 23.500 4 16.500v-8z"/><path class="ck" d="M11 17l4.500 4.500 8-9"/></svg><h2>FDR Portal</h2><p>AICTE Regulation Bureau</p><div class="ib"><u></u></div></div>
+<div class="veil" id="veil"></div><aside class="drawer" id="drawer" aria-label="FDR details"></aside><div class="toast" id="toast"></div>
+<script>
+const BASE=new Date('2026-11-20T00:00:00');let off=0;
+const fmt=n=>new Date(BASE.getTime()+n*864e5).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+const $=s=>document.querySelector(s);
+const COL={Active:'#1F7A5C',Expiring:'#D98E04',Matured:'#C2412D',Renewed:'#4A6FA5',Released:'#7A8794','Release pending':'#7B5EA7'};
+const INST=[['Sri Vidya Institute of Technology','Tamil Nadu'],['Maharana College of Engineering','Rajasthan'],['Lotus Valley Polytechnic','West Bengal'],['Deccan School of Management','Telangana'],['Gomti Institute of Pharmacy','Uttar Pradesh'],['Narmada Technical Campus','Madhya Pradesh'],['Kaveri Institute of Architecture','Karnataka'],['Brahmaputra Engineering College','Assam']];
+const BANKS=['State Bank of India','Canara Bank','Bank of Baroda','Punjab National Bank','HDFC Bank','Union Bank'];
+const MAT=[-12,5,12,24,28,44,58,75,88,121,150,210,300,340,-30,17];
+let ALL=MAT.map((m,i)=>({id:'FDR-'+(2041+i),inst:INST[i%8][0],st:INST[i%8][1],bank:BANKS[i%6],amt:[10,20,25,30,50][i%5],iss:m-1095,mat:m,ver:i%4==0?'pending':i==5?'flag':i%3==1?'officer':'bank',state:'live',stage:0,parent:null}));
+let fdrs=ALL;let audit=[];const log=(a,e)=>{audit.unshift({t:new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),a,e});};
+log('Portal opened with 16 seeded instruments','System');
+const days=f=>f.mat-off;
+function status(f){if(f.state=='superseded')return'Renewed';if(f.state=='released')return'Released';if(f.state=='relreq')return'Release pending';const d=days(f);return d<0?'Matured':d<=30?'Expiring':'Active'}
+const pill=s=>`<span class="pill" style="background:${COL[s]}">${s}</span>`;
+const VER={bank:['Bank-confirmed','bank'],officer:['Officer-verified',''],pending:['Pending bank confirmation','ocr'],flag:['Discrepancy raised','flag']};
+const vtag=v=>`<span class="tag ${VER[v][1]}">${VER[v][0]}</span>`;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600)}
+function count(el,to,from=0){const s=performance.now();(function f(n){const p=Math.min(1,(n-s)/800);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(s)}
+/* DASHBOARD */
+function dash(){
+ const live=fdrs.filter(f=>f.state!='superseded');const c={};Object.keys(COL).forEach(k=>c[k]=0);fdrs.forEach(f=>c[status(f)]++);
+ const held=fdrs.filter(f=>['Active','Expiring','Release pending'].includes(status(f))).reduce((a,f)=>a+f.amt,0);
+ const pend=fdrs.filter(f=>f.ver=='pending'||f.ver=='flag').length;
+ const tiles=[['Active',c.Active,'#1F7A5C'],['Expiring in 30 days',c.Expiring,'#D98E04'],['Matured, action due',c.Matured,'#C2412D'],['Pending verification',pend,'#4A6FA5']];
+ const tot=Object.values(c).reduce((a,b)=>a+b,0);let acc=0;const R=54,C=2*Math.PI*R;
+ const LC=lastChart||{arcs:{},bars:[],tiles:[],held:0},na={};
+ const arcs=Object.keys(COL).filter(k=>c[k]||LC.arcs[k]).map(k=>{const l=c[k]/tot*C,ang=acc/C*360-90,p=LC.arcs[k]||{l:0,a:ang};na[k]={l,a:ang};const s=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${COL[k]}" stroke-width="20" stroke-dasharray="${p.l} ${C-p.l}" data-d="${l} ${C-l}" data-a="${ang}" style="transform:rotate(${p.a}deg);transform-origin:70px 70px"/>`;acc+=l;return s}).join('');
+ const bk=[['Overdue',x=>x<0],['0–30',x=>x>=0&&x<=30],['31–60',x=>x>30&&x<=60],['61–90',x=>x>60&&x<=90],['91–180',x=>x>90&&x<=180],['181+',x=>x>180]];
+ const live2=fdrs.filter(f=>f.state=='live'||f.state=='relreq');const vals=bk.map(b=>live2.filter(f=>b[1](days(f))).reduce((a,f)=>a+f.amt,0));const mx=Math.max(...vals,1);
+ const soon=live2.filter(f=>days(f)<=60).sort((a,b)=>a.mat-b.mat).slice(0,5);
+ $('#dash').innerHTML=`<div class="grid g4">${tiles.map((t,ti)=>`<div class="card stat"><div class="n" data-c="${t[1]}" data-from="${LC.tiles[ti]||0}">${LC.tiles[ti]||0}</div><span>${t[0]}</span><i style="background:${t[2]}"></i></div>`).join('')}</div>
+ <div class="grid g2" style="margin-top:16px"><div class="card"><h3>Instruments by status</h3><div class="donut"><svg width="170" height="170" viewBox="0 0 140 140"><circle r="${R}" cx="70" cy="70" fill="none" stroke="var(--line)" stroke-width="20"/>${arcs}<text x="70" y="68" text-anchor="middle" font-family="Source Serif 4" font-weight="700" font-size="26" fill="currentColor">₹<tspan data-c="${held}" data-from="${LC.held}">${LC.held}</tspan>L</text><text x="70" y="86" text-anchor="middle" font-size="9" fill="var(--mute)">security held</text></svg><div class="leg">${Object.keys(COL).map(k=>`<div><i style="background:${COL[k]}"></i>${k} <b>${c[k]}</b></div>`).join('')}</div></div></div>
+ <div class="card"><h3>Maturity forecast (₹ lakh by days left)</h3><div class="bars">${vals.map((v,i)=>`<div><b data-c="${v}" data-from="${LC.bars[i]?LC.bars[i][1]:0}">${v}</b><em data-h="${v/mx*100}" style="height:${LC.bars[i]?LC.bars[i][0]:0}%${i==0?';background:var(--bad)':''}"></em>${bk[i][0]}</div>`).join('')}</div></div></div>
+ <div class="card" style="margin-top:16px"><h3>Needs attention soon</h3>${soon.length?`<div class="scroll"><table><tbody>${soon.map(f=>`<tr onclick="openD('${f.id}')"><td><b>${f.id}</b></td><td>${f.inst}</td><td>${days(f)<0?'Matured '+(-days(f))+' days ago':days(f)+' days left'}</td><td>${pill(status(f))}</td></tr>`).join('')}</tbody></table></div>`:'<p>Nothing is expiring in the next 60 days.</p>'}</div>`;
+ document.querySelectorAll('#dash [data-c]').forEach(e=>count(e,+e.dataset.c,+(e.dataset.from||0)));
+ lastChart={arcs:na,bars:vals.map(v=>[v/mx*100,v]),tiles:tiles.map(t=>t[1]),held};
+ requestAnimationFrame(()=>setTimeout(()=>{document.querySelectorAll('#dash circle[data-d]').forEach(e=>{e.setAttribute('stroke-dasharray',e.dataset.d);e.style.transform='rotate('+e.dataset.a+'deg)'});document.querySelectorAll('#dash em').forEach(e=>e.style.height=e.dataset.h+'%')},60));
+}
+/* REGISTER */
+let flt='All',q='';
+function reg(){
+ const chips=['All',...Object.keys(COL)];
+ const rows=fdrs.filter(f=>(flt=='All'||status(f)==flt)&&(f.id+f.inst+f.bank+f.st).toLowerCase().includes(q.toLowerCase()));
+ $('#reg').innerHTML=`<div class="bar"><input id="q" placeholder="Search institution, FDR number, bank" value="${q}" style="flex:1;min-width:200px" aria-label="Search">${chips.map(x=>`<button class="chip ${x==flt?'on':''}" data-f="${x}">${x}</button>`).join('')}</div>
+ <div class="card"><div class="scroll"><table><thead><tr><th>FDR</th><th>Institution</th><th>Bank</th><th>₹ lakh</th><th>Matures</th><th>Verification</th><th>Status</th></tr></thead><tbody>${rows.map(f=>`<tr onclick="openD('${f.id}')"><td><b>${f.id}</b></td><td>${f.inst}<br><small style="color:var(--mute)">${f.st}</small></td><td>${f.bank}</td><td>${f.amt}</td><td>${fmt(f.mat)}</td><td>${vtag(f.ver)}</td><td>${pill(status(f))}</td></tr>`).join('')||'<tr><td colspan=7>No instruments match. Clear the search or pick another status.</td></tr>'}</tbody></table></div></div>`;
+ $('#q').oninput=e=>{q=e.target.value;const p=e.target.selectionStart;reg();const n=$('#q');n.focus();n.setSelectionRange(p,p)};
+ document.querySelectorAll('#reg .chip').forEach(b=>b.onclick=()=>{flt=b.dataset.f;reg()});
+}
+/* DRAWER */
+const LIFE=['Submitted','Under scrutiny','Verified','Active','Expiring soon','Matured or renewed','Release requested','Released'];
+function openD(id){
+ const f=fdrs.find(x=>x.id==id),s=status(f);
+ let cur=f.ver=='pending'?1:f.ver=='flag'?1:2;if(['Active','Expiring','Matured'].includes(s)&&cur==2)cur=s=='Active'?3:s=='Expiring'?4:5;if(s=='Renewed')cur=5;if(s=='Release pending')cur=6;if(s=='Released')cur=7;
+ const chain=[];let p=f;while(p){chain.unshift(p.id);p=fdrs.find(x=>x.id==p.parent)}fdrs.filter(x=>x.parent==f.id).forEach(x=>chain.push(x.id));
+ const live=f.state=='live';
+ $('#drawer').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start"><div><h2>${f.id}</h2><div style="color:var(--mute)">${f.inst}, ${f.st}</div></div><button class="btn ghost" onclick="closeD()" aria-label="Close">Close</button></div>
+ <p>${pill(s)} ${vtag(f.ver)}</p>
+ <div class="kv"><div><small>Issuing bank</small>${f.bank}</div><div><small>Amount</small>₹${f.amt} lakh</div><div><small>Issue date</small>${fmt(f.iss)}</div><div><small>Maturity date</small>${fmt(f.mat)}</div><div><small>Amount source</small>${f.ver=='bank'?'<span class="tag bank">Bank-confirmed</span>':'<span class="tag">Institution-submitted</span>'}</div><div><small>Days to maturity</small>${days(f)}</div></div>
+ ${chain.length>1?`<div class="chain">Renewal chain: ${chain.join(' → ')}</div>`:''}
+ <h3>Documents</h3><div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 14px">${docs(f).map(d=>`<span class="tag ${d[1]?'bank':'flag'}">${d[1]?'✓':'Missing:'} ${d[0]}</span>`).join('')}</div><h3>Lifecycle</h3><ul class="tl">${LIFE.map((l,i)=>`<li class="${i<cur?'done':i==cur?'cur':''}">${l}</li>`).join('')}</ul>
+ <div style="display:flex;gap:8px;flex-wrap:wrap">
+ <button class="btn" ${f.ver=='bank'||f.state!='live'||!can('verify')?'disabled':''} onclick="bankOk('${f.id}')">Request bank confirmation</button>
+ <button class="btn ghost" ${f.ver=='flag'||f.state!='live'||!can('verify')?'disabled':''} onclick="flagIt('${f.id}')">Flag discrepancy</button>
+ <button class="btn alt" ${live&&can('renew')&&!fdrs.some(x=>x.parent==f.id&&x.state=='live')?'':'disabled'} onclick="renew('${f.id}')">Renew or replace</button>
+ <button class="btn ghost" ${live&&can('renew')?'':'disabled'} onclick="startRel('${f.id}')">Start release</button></div><h3 style="margin-top:20px">Scrutiny observations</h3><div class="log">${(f.obs||[]).map(o=>`<div><small>${o[0]}</small><span>${o[1]}</span></div>`).join('')||'<p style="color:var(--mute)">No observations yet.</p>'}</div>${can('obs')?`<div style="display:flex;gap:8px;margin-top:10px"><input id="ob" placeholder="Add an observation" style="flex:1"><button class="btn" onclick="addObs('${f.id}')">Save</button></div>`:''}`;
+ $('#drawer').classList.add('on');$('#veil').classList.add('on');
+}
+function closeD(){$('#drawer').classList.remove('on');$('#veil').classList.remove('on')}
+$('#veil').onclick=closeD;
+function bankOk(id){const f=fdrs.find(x=>x.id==id);f.ver='bank';log('Bank confirmed details of '+id,'Bank verifier');
+ if(f.parent){const p=fdrs.find(x=>x.id==f.parent);p.state='superseded';log(p.id+' superseded after '+id+' was verified','System')}
+ toast('Bank confirmed '+id);openD(id);refresh()}
+function flagIt(id){const f=fdrs.find(x=>x.id==id);f.ver='flag';log('Discrepancy raised on '+id,'Scrutiny Officer');toast('Discrepancy raised. Institution notified.');openD(id);refresh()}
+function renew(id){const o=fdrs.find(x=>x.id==id);const n={...o,id:'FDR-'+(2041+ALL.length),iss:off,mat:off+365,ver:'pending',state:'live',parent:id,stage:0};ALL.push(n);scope();log(n.id+' submitted to renew '+id,'Institution');toast(o.id+' stays active until '+n.id+' is verified');openD(n.id);refresh()}
+function startRel(id){const f=fdrs.find(x=>x.id==id);f.state='relreq';f.stage=0;log('Release requested for '+id,'Institution');toast('Release request created');closeD();go('rel')}
+/* SUBMIT */
+let scanned=null;
+function sub(){
+ $('#sub').innerHTML=`<div class="grid g2"><div class="card"><h3>New FDR</h3>
+ <label>Institution<br><select id="si" style="width:100%">${INST.filter(i=>role!='inst'||i==INST[0]).map(i=>`<option>${i[0]}</option>`).join('')}</select></label><br><br>
+ <label>FDR number<br><input id="sn" value="FDR-2041" style="width:100%"></label><br><br>
+ <label>Amount entered (₹ lakh)<br><input id="sa" type="number" value="25" style="width:100%"></label><br><br>
+ <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn alt" id="scanb">Scan FDR copy</button><button class="btn" id="subb" disabled>Submit for scrutiny</button></div></div>
+ <div class="card"><h3>Uploaded document</h3><div class="doc" id="doc"><b>FIXED DEPOSIT RECEIPT</b>Bank: Canara Bank, Trichy Main<br>FDR No: FDR-2041<br>Amount: Rs. 20,00,000<br>Issued: ${fmt(-300)} &nbsp; Matures: ${fmt(430)}<br>Lien marked in favour of AICTE<div class="scan"></div></div><div class="res" id="res" style="margin-top:12px"></div></div></div>`;
+ $('#scanb').onclick=()=>{$('#doc').classList.remove('run');void $('#doc').offsetWidth;$('#doc').classList.add('run');$('#res').innerHTML='';setTimeout(ocr,1500)};
+ $('#subb').onclick=submitF;
+}
+function ocr(){
+ const n=$('#sn').value.trim(),a=+$('#sa').value,dup=ALL.some(f=>f.id==n);
+ const rows=[['FDR number',n,'FDR-2041',n=='FDR-2041'],['Amount (₹ lakh)',a,20,a==20],['Bank','Canara Bank','Canara Bank',true],['Validity left','730 days','at least 365 days',true]];
+ let bad=rows.filter(r=>!r[3]).length;
+ $('#res').innerHTML=rows.map((r,i)=>`<div style="animation-delay:${i*.15}s"><span>${r[0]}<br><small style="color:var(--mute)">You entered ${r[1]}, document reads ${r[2]}</small></span><span class="tag ${r[3]?'bank':'flag'}">${r[3]?'Matches':'Mismatch'}</span></div>`).join('')+(dup?'<div class="warnbox">This FDR number already exists in the register. Check for a duplicate.</div>':'')+(bad?'<div class="warnbox">Fix the mismatched fields, then scan again. A mismatch is sent to the officer as a discrepancy.</div>':'<div class="okbox">All checked fields match the document.</div>');
+ scanned={bad,dup};$('#subb').disabled=false;
+}
+function submitF(){
+ const id='FDR-'+(2041+ALL.length),ii=INST.find(i=>i[0]==$('#si').value);
+ ALL.push({id,inst:ii[0],st:ii[1],bank:'Canara Bank',amt:+$('#sa').value,iss:-300,mat:430,ver:scanned.bad||scanned.dup?'flag':'pending',state:'live',stage:0,parent:null});
+ log(id+' submitted'+(scanned.bad||scanned.dup?' with a discrepancy flag':''),'Institution');toast(id+' submitted for scrutiny');scanned=null;go('reg');
+}
+/* ENGINE */
+function eng(){
+ const T=[90,60,30,15,7],live=fdrs.filter(f=>f.state=='live'||f.state=='relreq').sort((a,b)=>a.mat-b.mat);
+ let fired=0;
+ const rows=live.map(f=>{const d=days(f);const n=T.filter(t=>d<=t).length;fired+=n;const esc=d<-15?'Regulation Bureau head':d<-7?'Section head':d<0?'Officer follow-up':'—';
+ return `<tr onclick="openD('${f.id}')"><td><b>${f.id}</b></td><td>${f.inst}</td><td>${d<0?(-d)+' days overdue':d+' days left'}</td><td><div class="dots">${T.map((t,i)=>`<i class="${d<=t?'f':''} ${d<0?'r':''}" title="T-${t}"></i>`).join('')}</div></td><td>${esc}</td></tr>`}).join('');
+ $('#eng').innerHTML=`<div class="card" style="margin-bottom:16px"><h3>How it works</h3><p style="margin:0;color:var(--mute)">A daily job checks every live instrument. Drag the demo date at the top right and watch reminders fire at 90, 60, 30, 15 and 7 days before maturity, then escalate when a matured FDR gets no renewal. Each reminder is sent once.</p></div>
+ <div class="grid g4" style="margin-bottom:16px"><div class="card stat"><div class="n" data-c="${fired}">0</div><span>Reminders sent so far</span></div></div>
+ <div class="card"><div class="scroll"><table><thead><tr><th>FDR</th><th>Institution</th><th>Time left</th><th>Reminders (T-90 to T-7)</th><th>Escalated to</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+ document.querySelectorAll('#eng [data-c]').forEach(e=>count(e,+e.dataset.c));
+}
+/* RELEASE */
+const RS=[['Request','Institution'],['Eligibility','System'],['Scrutiny','Scrutiny officer'],['Senior review','Senior officer'],['Approval','Competent authority'],['Payment','Accounts'],['Closed','System']];
+function rel(){
+ const cur=fdrs.filter(f=>f.state=='relreq'),elig=fdrs.filter(f=>f.state=='live');
+ $('#rel').innerHTML=`<div class="bar"><select id="rs" aria-label="Choose FDR"><option value="">Start a release request for…</option>${elig.map(f=>`<option>${f.id} · ${f.inst}</option>`).join('')}</select><button class="btn" id="rb">Create request</button></div>
+ ${cur.map(f=>{const bl=f.stage==1&&(f.ver!='bank'||status(f)=='Matured'&&false);return `<div class="card" style="margin-bottom:16px"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><h3>${f.id} · ${f.inst}</h3>${vtag(f.ver)}</div>
+ <div class="steps">${RS.map((r,i)=>`<div class="st ${i<f.stage?'d':i==f.stage?'c':''}"><i>${i<f.stage?'✓':i+1}</i>${r[0]}</div>`).join('')}</div>
+ ${f.stage<6?`<div style="color:var(--mute);margin-bottom:10px">Waiting on: <b style="color:var(--ink)">${RS[f.stage][1]}</b>${STEP[role].includes(f.stage)?' <span class="tag bank">Your turn</span>':' <span class="tag">Not your step</span>'}</div>`:''}
+ ${f.stage==1&&f.ver!='bank'?'<div class="warnbox">Blocked: release needs bank-confirmed details and no open discrepancy. Open the FDR and confirm with the bank first.</div>':''}
+ <button class="btn" ${f.stage==1&&f.ver!='bank'||!STEP[role].includes(f.stage)?'disabled':''} onclick="adv('${f.id}')">${f.stage==0?'Submit request':f.stage==1?'Run eligibility check':f.stage==5?'Record UTR and close':'Approve as '+RS[f.stage][1]}</button> <button class="btn ghost" onclick="openD('${f.id}')">View FDR</button></div>`}).join('')||'<div class="card"><p>No release requests yet. Pick an FDR above or start one from its details panel.</p></div>'}`;
+ if(!can('renew'))$('#rel .bar').style.display='none';$('#rb').onclick=()=>{const v=$('#rs').value;if(!v)return toast('Pick an FDR first');startRel(v.split(' ')[0])};
+}
+function adv(id){const f=fdrs.find(x=>x.id==id);f.stage++;log(RS[f.stage-1][0]+' completed for '+id,RS[f.stage-1][1]);if(f.stage>=6){f.stage=6;f.state='released';log(id+' released and closed','Accounts');toast(id+' released. Institution notified.');setTimeout(()=>{f.stage=6;refresh()},50)}else toast(RS[f.stage][1]+' is next');refresh()}
+/* AUDIT */
+function aud(){$('#aud').innerHTML=`<div class="card"><h3>Every action, newest first</h3><div class="log">${audit.map((a,i)=>`<div style="animation-delay:${Math.min(i,10)*.04}s"><small>${a.t}</small><span style="flex:1">${a.a}</span><span class="tag">${a.e}</span></div>`).join('')}</div></div>`}
+function addObs(id){const v=$('#ob').value.trim();if(!v)return toast('Write an observation first');const f=fdrs.find(x=>x.id==id);(f.obs=f.obs||[]).unshift([new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}),v]);log('Observation recorded on '+id,'Scrutiny Officer');toast('Observation saved');openD(id)}
+function docs(f){const n=parseInt(f.id.slice(4));return [['FDR copy',1],['Lien letter',n%3!=0],['Bank confirmation',f.ver=='bank'],['Undertaking',n%5!=2]]}
+function rep(){
+ const live=fdrs.filter(f=>f.state=='live'||f.state=='relreq');
+ const pv=live.filter(f=>f.ver=='pending'||f.ver=='flag');
+ const up=live.filter(f=>days(f)>=0&&days(f)<=90).sort((a,b)=>a.mat-b.mat);
+ const md=live.map(f=>[f,docs(f).filter(d=>!d[1]).map(d=>d[0])]).filter(x=>x[1].length);
+ const od=live.filter(f=>days(f)<0);
+ const box=(t,n,rows)=>`<div class="card"><h3>${t} (${n})</h3><div class="scroll">${rows.length?`<table><tbody>${rows.join('')}</tbody></table>`:'<p style="color:var(--mute)">Nothing to show for this date.</p>'}</div></div>`;
+ const row=(f,x)=>`<tr onclick="openD('${f.id}')"><td><b>${f.id}</b></td><td>${f.inst}</td><td>${x}</td></tr>`;
+ $('#rep').innerHTML=`<div class="bar"><button class="btn" id="cp">Copy maturity report as CSV</button></div><div class="grid g2">${box('Pending verification',pv.length,pv.map(f=>row(f,vtag(f.ver))))}${box('Maturing in 90 days',up.length,up.map(f=>row(f,days(f)+' days')))}${box('Missing documents',md.length,md.map(x=>row(x[0],x[1].join(', '))))}${box('Overdue, needs intervention',od.length,od.map(f=>row(f,(-days(f))+' days overdue')))}</div>`;
+ $('#cp').onclick=()=>{const csv='FDR,Institution,Bank,Lakh,Maturity\n'+up.map(f=>[f.id,f.inst,f.bank,f.amt,fmt(f.mat)].join(',')).join('\n');try{navigator.clipboard.writeText(csv).then(()=>toast('CSV copied'),()=>toast('Copy was blocked by the browser'))}catch(e){toast('Copy was blocked by the browser')}};
+}
+const ROLES={inst:'Institution user',scr:'Scrutiny officer',sen:'Senior officer',auth:'Competent authority',acc:'Accounts officer'};
+const NAVS={inst:['dash','reg','sub','rel'],scr:['dash','reg','eng','rel','rep','aud'],sen:['dash','reg','eng','rel','rep','aud'],auth:['dash','reg','rel','rep','aud'],acc:['dash','reg','rel','rep','aud']};
+const PERM={inst:['renew'],scr:['verify','obs'],sen:['obs'],auth:[],acc:[]},STEP={inst:[0],scr:[1,2],sen:[1,3],auth:[4],acc:[5]};
+let role='scr';const can=p=>PERM[role].includes(p);
+function scope(){fdrs=role=='inst'?ALL.filter(f=>f.inst==INST[0][0]):ALL}
+/* NAV */
+const R={dash,reg,sub,eng,rel,aud,rep},T={rep:'Management reports',dash:'Dashboard',reg:'FDR register',sub:'Submit FDR',eng:'Alert engine',rel:'Release and refund',aud:'Audit trail'};let cv='dash';
+function go(v){scope();if(!NAVS[role].includes(v))v='dash';cv=v;document.querySelectorAll('nav button').forEach(b=>b.style.display=NAVS[role].includes(b.dataset.v)?'':'none');$('#who').innerHTML='Signed in as<br><b style="color:#fff">'+ROLES[role]+'</b><br>'+(role=='inst'?INST[0][0]:'AICTE Regulation Bureau');document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id==v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==v));$('#title').textContent=T[v];const el=$('#'+v);el.classList.add('enter');setTimeout(()=>el.classList.remove('enter'),1100);lastChart=null;R[v]();slideInd();prev=stat();scrollTo(0,0)}
+function slideInd(){const b=document.querySelector('nav button.on'),i=$('#ind');if(!b)return;i.style.cssText=`left:${b.offsetLeft}px;top:${b.offsetTop}px;width:${b.offsetWidth}px;height:${b.offsetHeight}px`;setTimeout(()=>i.classList.add('ready'),60)}
+window.addEventListener('resize',slideInd);if(document.fonts)document.fonts.ready.then(slideInd);
+let prev={},lastChart=null;
+function stat(){const m={};ALL.forEach(f=>m[f.id]=status(f));return m}
+function morph(){const now=stat();document.querySelectorAll('.view.on tbody tr[onclick] .pill').forEach(p=>{const id=(p.closest('tr').getAttribute('onclick').match(/FDR-\d+/)||[])[0],a=prev[id],b=now[id];if(a&&b&&a!=b&&p.animate)p.animate([{background:COL[a],transform:'scale(1.35)',boxShadow:'0 0 0 0 '+COL[b]+'99'},{background:COL[b],transform:'scale(1)',boxShadow:'0 0 0 10px '+COL[b]+'00'}],{duration:750,easing:'cubic-bezier(.2,.8,.2,1)'})});prev=now}
+function refresh(){scope();if(cv!='sub')R[cv]();morph()}
+$('#role').onchange=e=>{role=e.target.value;closeD();const m=document.querySelector('main');m.classList.remove('swap');void m.offsetWidth;m.classList.add('swap');go(cv);toast('Now viewing as '+ROLES[role])};
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+$('#slide').oninput=e=>{off=+e.target.value;$('#dt').textContent=fmt(off);if($('#drawer').classList.contains('on')){} refresh()};
+$('#dt').textContent=fmt(0);
+(function(){const it=$('#intro');if(matchMedia('(prefers-reduced-motion:reduce)').matches){it.remove();go('dash');return}setTimeout(()=>{it.classList.add('out');go('dash');setTimeout(()=>it.remove(),800)},2000)})();
+</script>
+</body>
+</html>
